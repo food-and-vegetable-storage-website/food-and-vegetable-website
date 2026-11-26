@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#d946ef">
+  <title>Chillora</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">❄</span><span>Chillora<small>SMART FOOD • LESS WASTE</small></span></a>
+    <div class="top-actions"><span class="status-dot"></span><span id="todayLabel">Your kitchen dashboard</span><button id="notifyBtn" class="outline-btn">Enable notifications</button></div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div><p class="eyebrow">YOUR SMART KITCHEN COMPANION</p><h1>Fresh food.<br><span>Smarter home.</span></h1>
+      <p class="hero-copy">Keep track of what you store, know when to use it, and get helpful storage guidance for everyday vegetables and prepared food.</p>
+      <a href="#addFood" class="primary-btn">＋ Add food to fridge</a></div>
+      <div class="hero-art"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="fridge-emoji">🧊</div><div class="floating-tag tag-one">🥦 Freshness check</div><div class="floating-tag tag-two">🌡 Celsius only</div></div>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card"><span>IN YOUR FRIDGE</span><strong id="totalCount">0</strong><small>tracked items</small></article>
+      <article class="stat-card"><span>USE SOON</span><strong id="soonCount">0</strong><small>within 2 days</small></article>
+      <article class="stat-card"><span>PAST REMINDER</span><strong id="overdueCount">0</strong><small>check these items</small></article>
+    </section>
+
+    <div class="content-grid">
+      <section class="panel" id="addFood">
+        <div class="section-heading"><div><p class="eyebrow">FOOD INVENTORY</p><h2>Add to your fridge</h2></div><span class="heading-icon">＋</span></div>
+        <form id="foodForm">
+          <label>Food name<input id="foodName" list="foodSuggestions" placeholder="e.g. Tomatoes, cooked rice" required><datalist id="foodSuggestions"></datalist></label>
+          <div class="form-row">
+            <label>Food category<select id="foodCategory"><option>Vegetable</option><option>Fruit</option><option>Prepared food</option><option>Dairy</option><option>Other</option></select></label>
+            <label>Quantity<input id="foodQuantity" placeholder="e.g. 4 pieces / 1 box"></label>
+          </div>
+          <div class="form-row">
+            <label>Date stored<input id="storedDate" type="date" required></label>
+            <label>Storage place<select id="storagePlace"><option>Refrigerator</option><option>Freezer</option><option>Room temperature</option></select></label>
+          </div>
+          <div class="form-row">
+            <label>Reminder after<select id="reminderDays"><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="7">7 days</option><option value="custom">Choose date manually</option></select></label>
+            <label id="customDateWrap" class="hidden">Custom reminder date<input id="customDate" type="date"></label>
+          </div>
+          <label>Notes (optional)<textarea id="foodNotes" rows="2" placeholder="e.g. Washed, cut, airtight container"></textarea></label>
+          <button class="primary-btn full" type="submit">Save food item <span>↗</span></button>
+        </form>
+      </section>
+
+      <section class="panel inventory-panel">
+        <div class="section-heading"><div><p class="eyebrow">WHAT'S INSIDE</p><h2>Your food list</h2></div><span class="heading-icon">▤</span></div>
+        <div class="inventory-tools"><input id="searchFood" placeholder="⌕  Search food..."><select id="filterFood"><option value="all">All items</option><option value="soon">Use soon</option><option value="overdue">Reminder due</option></select></div>
+        <div id="foodList" class="food-list"><div class="empty-state">🥬<b>Your fridge is ready!</b><span>Add your first food item to begin tracking.</span></div></div>
+      </section>
+    </div>
+
+    <section class="panel guide-panel" id="storageGuide">
+      <div class="section-heading"><div><p class="eyebrow">SMART STORAGE GUIDE</p><h2>Chillora Storage Guide</h2><p class="subcopy">Look up vegetables, fruits and prepared-food storage guidance.</p></div><div class="guide-badge">✦ STORAGE GUIDE</div></div>
+      <div class="guide-layout">
+        <div class="guide-input-area"><label>What food would you like to check?<input id="guideFood" list="foodSuggestions" placeholder="Try tomatoes, potatoes, spinach..."></label>
+          <div class="form-row"><label>Storage condition<select id="guideStorage"><option>Refrigerator</option><option>Freezer</option><option>Room temperature</option></select></label><label>Food state<select id="guideState"><option>Whole / uncut</option><option>Cut / peeled</option><option>Cooked / prepared</option></select></label></div>
+          <button id="checkStorage" class="primary-btn">Check storage guide ✦</button>
+          <p class="fine-print">Guidance is an estimate, not a safety guarantee. Check for spoilage and follow local food-safety advice.</p>
+        </div>
+        <div id="guideResult" class="guide-result"><div class="guide-spark">✦</div><b>Your storage answer appears here</b><span>Enter a food name to see an estimated shelf life, storage temperature in °C, and helpful tips.</span></div>
+      </div>
+    </section>
+
+    <section class="bottom-grid">
+      <section class="panel tips-panel"><p class="eyebrow">QUICK KNOWLEDGE</p><h2>Vegetable shelf-life library</h2><p class="subcopy">Typical quality ranges for properly stored, fresh vegetables.</p><div id="vegLibrary" class="veg-grid"></div></section>
+      <section class="panel reminder-panel"><p class="eyebrow">STAY ON TOP OF IT</p><h2>Reminder settings</h2><p>Allow notifications to receive browser alerts. For reminders while the browser is closed, configure the optional push service described in SETUP.md.</p><div class="reminder-note">🔔 <span><b>Phone powered off?</b><br>Notifications cannot arrive while a phone is completely switched off. If it is on but locked or the browser is closed, push notifications may work when supported and configured.</span></div></section>
+    </section>
+    <footer>Chillora <span>•</span> Store smart, waste less <span>•</span> Temperature units: °C</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
